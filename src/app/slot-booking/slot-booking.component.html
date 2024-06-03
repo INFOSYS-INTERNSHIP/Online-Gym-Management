@@ -1,0 +1,23 @@
+<div class="slot-booking">
+  <div id="background"></div>
+  
+  <div class="schedule-container">
+    <h2>Slot Booking</h2>
+    <div class="days">
+      <div class="day" *ngFor="let day of weekDays">
+        <h2 class="day-name">{{ day.name }}</h2>
+        <div *ngFor="let slot of day.slots" class="slot">
+          <div class="slot-info">
+            <p><strong>Time:</strong> {{ slot.time }}</p>
+            <p class="pp">
+              <strong>Activity:</strong> {{ slot.activity }}
+              <i [class]="slot.icon"></i>
+              <button class="book-slot-btn" (click)="bookSlot(day.name, slot)">Book Slot</button>
+            </p>
+            <p><strong>Trainer:</strong> {{ slot.trainer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+/* Background image covering the entire page */
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../assets/gym.avif'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Ensure it stays behind other content */
+}
+
+/* Container for the admin home page content */
+.admin-home-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    margin-top: 100px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1; /* Ensure it stays above the background */
+    position: relative;
+}
+
+/* Heading style */
+.heading {
+    margin-bottom: 20px;
+}
+
+/* Info row container for the two info boxes */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Individual info box styling */
+.info-box {
+    flex: 1;
+    padding: 20px;
+    height: 130px;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #e9e9e9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-box h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.info-box p {
+    font-size: 2em;
+    color: #007bff;
+}
+
+/* Options container to organize buttons */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Button style */
+.options .btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Button hover effect */
+.options .btn:hover {
+    background-color: #0056b3;
+}
+
+.admin-home{
+    position: relative;
+    z-index: 3;
+}

@@ -1,0 +1,40 @@
+<div class="purchase">
+
+<div class="bg">
+
+</div>
+<div class="membership-form-container">
+    <h2>Purchase Gym Membership</h2>
+    <form [formGroup]="membershipForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" formControlName="fullName" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" formControlName="phone" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="membershipType">Membership Type</label>
+        <select id="membershipType" formControlName="membershipType" class="form-control">
+          <option value="1-month">1 Month - ₹1200</option>
+          <option value="3-months">3 Months - ₹3500</option>
+          <option value="6-months">6 Months - ₹7000</option>
+          <option value="1-year">1 Year - ₹10000</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="payment">Payment Methods</label>
+        <select id="payment" formControlName="payment" class="form-control">
+            <option value="Cash">Cash</option>
+            <option value="UPI">UPI</option>
+          </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Purchase Now</button>
+    </form>
+  </div>
+</div>
