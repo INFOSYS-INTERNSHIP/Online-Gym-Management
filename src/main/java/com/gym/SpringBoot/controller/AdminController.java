@@ -1,6 +1,5 @@
 package com.gym.SpringBoot.controller;
 
-
 import com.gym.SpringBoot.Entity.GymSlot;
 import com.gym.SpringBoot.Entity.Trainer;
 import com.gym.SpringBoot.Entity.User;
@@ -35,7 +34,8 @@ public class AdminController {
 
     @PostMapping("/users/create")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        User newUser = userService.registerUser(user);
+        // When creating a user, assume it's a regular user, not an admin or trainer
+        User newUser = userService.registerUser(user, "USER");
         return ResponseEntity.ok(newUser);
     }
 
@@ -95,7 +95,7 @@ public class AdminController {
         Trainer trainer = trainerService.findById(trainerId);
 
         if (user != null && trainer != null) {
-            user.setTrainer(trainer);
+           // user.setTrainer(trainer);
             userService.save(user);
             return ResponseEntity.ok("Trainer assigned to user successfully");
         }

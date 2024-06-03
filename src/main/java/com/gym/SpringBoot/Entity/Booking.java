@@ -1,4 +1,4 @@
-//package com.gym.SpringBoot.Entity;
+
 package com.gym.SpringBoot.Entity;
 
 import javax.persistence.*;
@@ -52,10 +52,7 @@ public class Booking {
 	public void setBookingTime(LocalDateTime bookingTime) {
 		this.bookingTime = bookingTime;
 	}
-
-   
-    
-    
+  
 }
 
 

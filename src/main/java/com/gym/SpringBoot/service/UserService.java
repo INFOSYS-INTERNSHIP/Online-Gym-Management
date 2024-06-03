@@ -1,38 +1,52 @@
 package com.gym.SpringBoot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
+import com.gym.SpringBoot.Entity.Role;
 import com.gym.SpringBoot.Entity.User;
+import com.gym.SpringBoot.Repository.RoleRepository;
 import com.gym.SpringBoot.Repository.UserRepository;
+
 
 @Service
 public class UserService {
-
+	
     @Autowired
     private UserRepository userRepository;
-
+    
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepository roleRepository;
 
-    public User registerUser(User user) {
+
+    public User registerUser(User user, String roleName) {
+    	if (user.getRoles() == null || user.getRoles().isEmpty()) {
+            Role role = roleRepository.findByName(roleName);
+            if (role != null) {
+                user.setRoles(Collections.singleton(role));
+            }
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(false); // user needs to be enabled after email verification
         return userRepository.save(user);
     }
-
     public User findByEmail(String email) {
-        return userRepository.findByEmailIgnoreCase(email).orElse(null);
+        return userRepository.findByEmail(email);
     }
-//    public Optional<User> findByEmail(String email) {
-//    	return userRepository.findByEmail(email);
-//    }
 
-    
     public User findById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
@@ -51,16 +65,17 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
         }
         user.setEnabled(userDetails.isEnabled());
-        user.setRole(userDetails.getRole());
+        user.setRoles(userDetails.getRoles());
         return userRepository.save(user);
     }
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
     public User save(User user) {
-        return userRepository.save(user);    
+        return userRepository.save(user);
+    }
 }
-    
-}
+
 

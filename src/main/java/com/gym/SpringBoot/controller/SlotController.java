@@ -21,10 +21,10 @@ public class SlotController {
         return gymSlotService.getAllGymSlots(); 
     }
 
-    @PostMapping("/book")
-    public ResponseEntity<String> bookSlot(@RequestParam Long slotId, @RequestParam Long userId) {
-        // Booking logic here
-        return ResponseEntity.ok("Slot booked successfully.");
-    }
+//    @PostMapping("/book")
+//    public ResponseEntity<String> bookSlot(@RequestParam Long slotId, @RequestParam Long userId) {
+//        // Booking logic here
+//        return ResponseEntity.ok("Slot booked successfully.");
+//    }
 }
 

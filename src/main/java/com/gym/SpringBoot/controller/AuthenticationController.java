@@ -1,18 +1,20 @@
 package com.gym.SpringBoot.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import com.gym.SpringBoot.DTO.AuthenticationRequest;
-import com.gym.SpringBoot.DTO.AuthenticationResponse;
-import com.gym.SpringBoot.component.JwtUtil;
 import com.gym.SpringBoot.service.CustomUserDetailsService;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -23,26 +25,50 @@ public class AuthenticationController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-
+    public ResponseEntity<String> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+        // Authentication process
         try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword())
+            // Try to authenticate by username first
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword()
+                    )
             );
-        } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+
+            return ResponseEntity.ok("Successfully logged in as " + userDetails.getUsername());
+        } catch (UsernameNotFoundException | BadCredentialsException ex) {
+            // If failed, try to authenticate by email
+            try {
+                Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                authenticationRequest.getEmail(),
+                                authenticationRequest.getPassword()
+                        )
+                );
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                UserDetails userDetails = userDetailsService.loadUserByEmail(authenticationRequest.getEmail());
+
+                return ResponseEntity.ok("Successfully logged in as " + userDetails.getUsername());
+            } catch (UsernameNotFoundException | BadCredentialsException e) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or email/password");
+            }
         }
+    }
 
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getEmail());
-
-        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok("Successfully logged out");
     }
 }
+
+
 

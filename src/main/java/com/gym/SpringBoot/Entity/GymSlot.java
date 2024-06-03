@@ -1,6 +1,4 @@
 package com.gym.SpringBoot.Entity;
-
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -42,23 +40,18 @@ public class GymSlot {
 	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
 	}
-
 	public int getAvailableSlots() {
 		return availableSlots;
 	}
-
 	public void setAvailableSlots(int availableSlots) {
 		this.availableSlots = availableSlots;
 	}
-
 	public Trainer getTrainer() {
 		return trainer;
 	}
-
 	public void setTrainer(Trainer trainer) {
 		this.trainer = trainer;
 	}
-
 }
 
 

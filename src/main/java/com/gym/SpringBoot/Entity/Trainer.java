@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 public class Trainer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -1,13 +1,14 @@
 package com.gym.SpringBoot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.gym.SpringBoot.Entity.VerificationToken;
 import com.gym.SpringBoot.service.UserService;
 import com.gym.SpringBoot.service.VerificationTokenService;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
 public class VerificationController {
@@ -24,7 +25,6 @@ public class VerificationController {
         if (verificationToken == null) {
             return ResponseEntity.badRequest().body("Invalid token.");
         }
-
         verificationTokenService.confirmUser(verificationToken);
         return ResponseEntity.ok("Email verified successfully. You can now log in.");
         

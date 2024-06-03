@@ -6,7 +6,6 @@ import java.util.Date;
 
 @Entity
 public class PasswordResetToken {
-
 	private static final int EXPIRATION = 60 * 24;
 
 	@Id

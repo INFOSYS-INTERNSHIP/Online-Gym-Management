@@ -1,11 +1,8 @@
 package com.gym.SpringBoot.Entity;
 
-
 import javax.persistence.*;
-
 @Entity
 public class Feedback {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

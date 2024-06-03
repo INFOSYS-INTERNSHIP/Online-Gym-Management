@@ -1,19 +1,29 @@
 package com.gym.SpringBoot.Entity;
-
 import javax.persistence.*;
 
-@Entity
-public class User {
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "user") 
+public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
     private String email;
     private String password;
     private boolean enabled;
-    private String role;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles= new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "trainer_id", nullable = true)
@@ -60,12 +70,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public String getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Trainer getTrainer() {
@@ -75,5 +85,22 @@ public class User {
     public void setTrainer(Trainer trainer) {
         this.trainer = trainer;
     }
+
+	public User() {
+		
+	}
+
+	public User(Long id, String username, String email, String password, boolean enabled, Set<Role> roles,
+			Trainer trainer) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.enabled = enabled;
+		this.roles = roles;
+		this.trainer = trainer;
+	}
 }
+
 

@@ -1,6 +1,7 @@
 package com.gym.SpringBoot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.gym.SpringBoot.Entity.PasswordResetToken;
@@ -17,7 +18,7 @@ public class PasswordResetService {
     @Autowired
     private EmailService emailService;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
     public void createPasswordResetToken(User user, String token) {
         PasswordResetToken passwordResetToken = new PasswordResetToken(token, user);
         tokenRepository.save(passwordResetToken);
