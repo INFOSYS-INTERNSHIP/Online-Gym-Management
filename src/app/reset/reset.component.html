@@ -1,0 +1,18 @@
+<div class="reset">
+<div class="bg"></div>
+<div class="reset-password">
+    <div class="bg"></div>
+    <div class="reset-password-form-container">
+      <h2>Reset Password</h2>
+      <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email" class="form-control">
+        </div>
+      
+        <button type="submit" class="btn btn-primary">Reset Password</button>
+      </form>
+    </div>
+  </div>
+</div>
+  
