@@ -6,21 +6,28 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import { UserHomeComponent } from './user-home-page/user-home-page.component';
 import { SlotBookingComponent } from './slot-booking/slot-booking.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { ResetComponent } from './reset/reset.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserLoginComponent,
-    UserHomeComponent,
+    // AppComponent,
+    // UserLoginComponent,
+    // UserHomeComponent,
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SlotBookingComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    UserLoginComponent,
+    RegistrationComponent,
+    ResetComponent,
+    NewPasswordComponent
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [],
 })
 export class AppModule { }
