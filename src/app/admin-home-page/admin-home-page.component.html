@@ -1,4 +1,4 @@
-<div class="admin-home">
+<!-- <div class="admin-home">
 <div id="background"></div>
 
 <div class="admin-home-container">
@@ -16,12 +16,165 @@
   </div>
 
   <div class="options">
-    <button class="btn btn-primary btn-lg" >Add New Membership</button>
+    <button class="btn btn-primary btn-lg" (click)="showUserManagement()">Members</button>
     <button class="btn btn-primary btn-lg" >Slot Management</button>
     <button class="btn btn-primary btn-lg" >Trainer Management</button>
     <button class="btn btn-primary btn-lg" >Attendance</button>
     <button class="btn btn-primary btn-lg" >Finance</button>
-    
-  </div>
+     -->
+<!-- </div>
 </div>
+</div> -->
+
+<div class="admin-home">
+  <div id="background"></div>
+
+  <div class="admin-home-container">
+    <h1 class="heading">Admin Panel</h1>
+
+    <div class="info-row">
+      <div class="info-box">
+        <h2>Active Members</h2>
+        <p>{{ activeMembers }}</p>
+      </div>
+      <div class="info-box">
+        <h2>Trainers</h2>
+        <p>{{ trainers }}</p>
+      </div>
+    </div>
+
+    <div class="options">
+      <button class="btn btn-primary btn-lg" (click)="showUserManagement()">Members</button>
+      <button class="btn btn-primary btn-lg" (click)="showSlotManagement()">Slot Management</button>
+      <button class="btn btn-primary btn-lg" (click)="showTrainerManagement()">Trainer Management</button>
+      <button class="btn btn-primary btn-lg">Attendance</button>
+      <button class="btn btn-primary btn-lg">Finance</button>
+    </div>
+
+    <div *ngIf="showUserManagementSection">
+      <h2>User Management</h2>
+      <button class="btn btn-primary" (click)="createUser()">Create New User</button>
+      <table>
+        <tr *ngFor="let user of users">
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="updateUser(user)">Update</button>
+            <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Create user form -->
+    <div *ngIf="showCreateUserForm">
+      <h2>Create New User</h2>
+      <form (ngSubmit)="createUserFormSubmit()">
+        <label>Username:</label>
+        <input type="text" [(ngModel)]="newUser.username" name="username">
+        <br>
+        <label>Email:</label>
+        <input type="email" [(ngModel)]="newUser.email" name="email">
+        <br>
+        <label>Password:</label>
+        <input type="password" [(ngModel)]="newUser.password" name="password">
+        <br>
+        <button type="submit" class="btn btn-primary ">Create User</button>
+        <!-- <button type="button" class="btn btn-secondary " (click)="cancelCreateUser()">Cancel</button> -->
+      </form>
+    </div>
+
+    <!-- Update user form -->
+    <div *ngIf="showUpdateUserForm">
+      <h2>Update User</h2>
+      <form (ngSubmit)="updateUserFormSubmit()">
+        <label>Username:</label>
+        <input type="text" [(ngModel)]="updatedUser.username" name="username">
+        <br>
+        <label>Email:</label>
+        <input type="email" [(ngModel)]="updatedUser.email" name="email">
+        <br>
+        <label>Password:</label>
+        <input type="password" [(ngModel)]="updatedUser.password" name="password">
+        <br>
+        <button type="submit" class="btn btn-primary">Update User</button>
+      </form>
+    </div>
+    <!-- Slot Management Section -->
+    <div *ngIf="showSlotManagementSection">
+      <h2>Slot Management</h2>
+      <!-- Form to create a new slot -->
+      <div>
+        <h3>Create New Slot</h3>
+        <form (submit)="createSlot()">
+          <label>Start Time:</label>
+          <input type="datetime-local" [(ngModel)]="newSlot.startTime" name="startTime" required>
+          <br>
+          <label>End Time:</label>
+          <input type="datetime-local" [(ngModel)]="newSlot.endTime" name="endTime" required>
+          <br>
+          <label>Available Slots:</label>
+          <input type="number" [(ngModel)]="newSlot.availableSlots" name="availableSlots" required>
+          <br>
+          <button type="submit" class="btn btn-primary">Create Slot</button>
+        </form>
+      </div>
+
+      <!-- List existing slots -->
+      <div>
+        <h3>Existing Slots</h3>
+        <table>
+          <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Available Slots</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let slot of slots">
+            <td>{{ slot.startTime }}</td>
+            <td>{{ slot.endTime }}</td>
+            <td>{{ slot.availableSlots }}</td>
+            <td>
+              <!-- <button class="btn btn-primary" (click)="updateSlot(slot.id, slot)">Update</button> -->
+              <button class="btn btn-primary" (click)="updateSlot(slot)">Update</button>
+              <!-- <button class="btn btn-primary" (click)="updateSlot(slot.id, updatedUser)">Update</button> -->
+              <button class="btn btn-danger" (click)="deleteSlot(slot.id)">Delete</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <!-- Update slot form -->
+    <div *ngIf="showUpdateSlotForm">
+      <h2>Update Slot</h2>
+      <form (ngSubmit)="updateSlotFormSubmit()">
+        <label>Start Time:</label>
+        <input type="datetime-local" [(ngModel)]="updatedSlot.startTime" name="startTime">
+        <br>
+        <label>End Time:</label>
+        <input type="datetime-local" [(ngModel)]="updatedSlot.endTime" name="endTime">
+        <br>
+        <label>Available Slots:</label>
+        <input type="number" [(ngModel)]="updatedSlot.availableSlots" name="availableSlots">
+        <br>
+        <button type="submit" class="btn btn-primary">Update Slot</button>
+      </form>
+    </div>
+
+    <!-- Trainer Management Section -->
+    <div *ngIf="showTrainerManagementSection">
+      <h2>Trainer Management</h2>
+      <!-- List of trainers -->
+      <div>
+        <h3>All Trainers</h3>
+        <ul>
+          <li *ngFor="let trainer of trainers">
+            {{ trainer.name }} ({{ trainer.email }})
+            <button class="btn btn-primary" (click)="assignTrainer(selectedUser, trainer.id)">Assign</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
 </div>

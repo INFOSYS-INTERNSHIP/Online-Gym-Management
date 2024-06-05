@@ -6,21 +6,21 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import { UserHomeComponent } from './user-home-page/user-home-page.component';
 import { SlotBookingComponent } from './slot-booking/slot-booking.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserLoginComponent,
-    UserHomeComponent,
+    // AppComponent,
+    // UserLoginComponent,
+    // UserHomeComponent,
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SlotBookingComponent,
-    PurchaseComponent
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  // bootstrap: [AppComponent],
 })
 export class AppModule { }
