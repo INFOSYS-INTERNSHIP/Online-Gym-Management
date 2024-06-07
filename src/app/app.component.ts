@@ -9,11 +9,12 @@ import { SlotBookingComponent } from './slot-booking/slot-booking.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ResetComponent } from './reset/reset.component';
+import { FirstComponent } from './first/first.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet , AdminLoginComponent,UserLoginComponent , AdminHomeComponent , UserHomeComponent,SlotBookingComponent,PurchaseComponent , RegistrationComponent, ResetComponent],
+  imports: [RouterOutlet , AdminLoginComponent,UserLoginComponent , AdminHomeComponent , UserHomeComponent,SlotBookingComponent,PurchaseComponent , RegistrationComponent, ResetComponent, FirstComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

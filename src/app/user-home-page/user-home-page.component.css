@@ -93,7 +93,7 @@ body {
 }
 
 /* Section Styles */
-.about-section, .services-section, .testimonials-section, .trainers-section, .membership-section, .facilities-section, .offers-section, .contact-section {
+.about-section, .services-section, .trainers-section, .membership-section, .facilities-section, .offers-section, .contact-section {
   text-align: center;
   z-index: 5;
 }
@@ -401,6 +401,3 @@ h2 {
   color: #666;
 }
 
-.image-trainer {
-  /* Add your background image or styling for the trainer images here */
-}
