@@ -59,8 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                              "/api/auth/change-password",
                              "/api/user/bookings/**",
                              "/api/user/feedback/**",
-                             "/api/slots/**").permitAll()
-                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                             "/api/slots/**","/api/admin/**").permitAll()
+//                .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/trainer/**").hasRole("TRAINER")
                 .anyRequest().authenticated()
             .and()

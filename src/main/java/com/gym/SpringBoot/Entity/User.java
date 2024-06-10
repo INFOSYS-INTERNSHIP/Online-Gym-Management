@@ -29,6 +29,19 @@ public class User {
     @JoinColumn(name = "trainer_id", nullable = true)
     private Trainer trainer;
 
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Membership> memberships = new HashSet<>();
+
+    public Set<Membership> getMemberships() {
+        return memberships;
+    }
+
+    public void setMemberships(Set<Membership> memberships) {
+        this.memberships = memberships;
+    }
+    
+    
     // Getters and Setters
     public Long getId() {
         return id;

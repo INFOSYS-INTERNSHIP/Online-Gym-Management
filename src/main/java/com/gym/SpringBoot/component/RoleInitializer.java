@@ -10,7 +10,15 @@ import com.gym.SpringBoot.Repository.RoleRepository;
 
 @Component
 public class RoleInitializer implements ApplicationRunner {
-
+//	"username": "admin1",
+//    "email": "admin1@example.com",
+//    "password": "securepassword123",
+//    "role": "ADMIN"
+//
+//    "username": "user1",
+//    "email": "user2@example.com",
+//    "password": "securepassword123",
+//    "role": "USER"
     @Autowired
     private RoleRepository roleRepository;
 

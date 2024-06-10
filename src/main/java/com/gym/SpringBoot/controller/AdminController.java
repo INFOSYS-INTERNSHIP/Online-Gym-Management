@@ -1,6 +1,7 @@
 package com.gym.SpringBoot.controller;
 
 import com.gym.SpringBoot.Entity.GymSlot;
+
 import com.gym.SpringBoot.Entity.Trainer;
 import com.gym.SpringBoot.Entity.User;
 import com.gym.SpringBoot.service.GymSlotService;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
 
     @Autowired
@@ -107,5 +109,22 @@ public class AdminController {
         List<Trainer> trainers = trainerService.findAll();
         return ResponseEntity.ok(trainers);
     }
+    @PostMapping("/trainers")
+    public ResponseEntity<Trainer> createTrainer(@RequestBody Trainer trainer) {
+        Trainer newTrainer = trainerService.save(trainer);
+        return ResponseEntity.ok(newTrainer);
+    }
+
+//    @PutMapping("/trainers/{id}")
+//    public ResponseEntity<Trainer> updateTrainer(@PathVariable Long id, @RequestBody Trainer trainerDetails) {
+//        Trainer updatedTrainer = trainerService.updateTrainer(id, trainerDetails);
+//        return ResponseEntity.ok(updatedTrainer);
+//    }
+//
+//    @DeleteMapping("/trainers/{id}")
+//    public ResponseEntity<Void> deleteTrainer(@PathVariable Long id) {
+//        trainerService.deleteTrainer(id);
+//        return ResponseEntity.noContent().build();
+//    }
 }
 
